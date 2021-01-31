@@ -1,0 +1,74 @@
+/*Given a value N. The task is to find how many numbers less than or equal to N have numbers of divisors exactly equal to 3.
+
+Input:
+The first line contains integer T, denoting number of test cases. Then T test cases follow. The only line of each test case contains an integer N.
+
+Output :
+For each testcase, in a new line, print the answer of each test case.
+
+Constraints :
+1 <= T <= 103
+1 <= N <= 1012
+
+Example:
+Input :
+3
+6
+10
+30
+Output :
+1
+2
+3
+
+Explanation:
+Testcase 1: There is only one number 4 which has exactly three divisors 1, 2 and 4.*/
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+
+unsigned long long countNoOfprimeNumber(unsigned long long N)
+{
+    unsigned long long arr[N+1] = {0};
+    for(unsigned long long  i = 2; i <= N; i++)
+    {
+        if(!arr[i])
+        {
+            for(unsigned long long j = i*i; j <= N; j += i)
+            {
+                arr[j] = 1; 
+            }
+        }
+    }
+    unsigned long long count  = 0;
+    for(unsigned long long i = 2; i <= N ;i++)
+    {
+        if(!arr[i])
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+
+unsigned long long findNumbersLessThanEqualWhichHas3Divisors(unsigned long long  N)
+{
+    double rootValue = floor(sqrt(N));
+    return countNoOfprimeNumber(rootValue);
+}
+
+
+int main() {
+	//code
+	int T;
+	cin >> T;
+	for(int t = 0; t < T; t++)
+	{
+	    unsigned long long N;
+	    cin >> N;
+	    cout <<  findNumbersLessThanEqualWhichHas3Divisors(N) << "\n";
+	}
+	return 0;
+}
